@@ -51,3 +51,105 @@
 ### 2. 克隆项目
 ```bash
 git clone https://github.com/QIANG-t/nanobot-qq-agent.git
+cd nanobot-qq-agent
+```
+
+3. 安装 Nanobot
+
+```bash
+pip install nanobot-ai
+```
+
+4. 拉取本地模型
+
+```bash
+ollama pull qwen2.5:7b
+```
+
+5. 配置
+
+复制 config.example.json 为 config.json，填入你的 QQ 机器人 App ID 和 Secret，并确认：
+
+· provider 为 ollama
+· model 为 qwen2.5:7b
+
+6. 启动服务
+
+```bash
+nanobot gateway
+```
+
+7. 测试
+
+在 QQ 上 @机器人，发送 用 system-monitor。
+
+---
+
+📁 项目结构
+
+```
+.
+├── config.example.json        # 配置模板（需复制为 config.json 并填入真实信息）
+├── skills/                    # 自定义技能目录
+│   ├── daily_news/
+│   │   └── SKILL.md           # 新闻聚合技能
+│   └── system_monitor/
+│       └── SKILL.md           # 系统监控技能
+├── workspace/                 # 工作区（记忆、日志、会话）
+│   ├── MEMORY.md              # 长期记忆文件（自动更新）
+│   └── sessions/              # 对话原始记录
+├── memory/                    # 记忆存储
+├── cron/                      # 定时任务配置
+├── README.md
+└── .gitignore
+```
+
+---
+
+🔧 自定义技能
+
+在 skills/ 下新建文件夹，放入 SKILL.md，格式示例：
+
+```markdown
+---
+name: my-skill
+description: 技能描述
+---
+
+用户要求“做某件事”时，请按以下步骤：
+1. 调用 `tool_name` 工具执行命令。
+2. 整理输出结果。
+```
+
+重启 gateway 即可生效。
+
+---
+
+🧠 长期记忆（Dream）
+
+· 每隔 2 小时，Dream 后台进程自动扫描对话记录。
+· 提取事实、偏好、项目信息等，写入 workspace/MEMORY.md。
+· 也可自动发现重复工作流，生成新技能。
+· 无需人工干预，越用越智能。
+
+---
+
+📌 未来计划
+
+· 支持飞书 / 钉钉
+· 接入 MCP 协议扩展工具生态
+· 增加向量数据库实现更复杂的记忆检索
+
+---
+
+📄 许可证
+
+MIT
+
+🙋 联系我
+
+· GitHub：QIANG-t
+· 邮箱：你的邮箱（可选）
+
+```
+
